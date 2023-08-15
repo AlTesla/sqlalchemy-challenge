@@ -25,8 +25,16 @@ session = Session(engine)
 app = Flask(__name__)
 
 @app.route('/')
-def index():
-    return "hello world!"
+def welcome():
+    """List all avilable api routes"""
+    return (
+        f"Available Routes:<br>"
+        f"/api/v1.0/precipitation"
+        f"/api/v1.0/stations"
+        f"/api/v1.0/tobs"
+        f"/api/v1.0/<start>"
+        f"/api/v1.0/<end>"
+    )
 
 
 
