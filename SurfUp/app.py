@@ -1,5 +1,5 @@
 # Import the dependencies.
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -30,7 +30,16 @@ def welcome():
     return render_template('routes.html')
 
 
-
+@app.route("/api/v1.0/precipitation")
+def precipitation():
+    #query the last 12 months of data 
+    data = session.query(Measurement.date, Measurement.prcp).\
+                   filter(Measurement.date >= '2016-08-23').all()
+    #convert the query result to a dictionary
+    result = {date: prcp for date, prcp in data}
+    #return the Json representation of the dictionary
+    return jsonify(result)
+    
 #################################################
 # Flask Routes
 #################################################
