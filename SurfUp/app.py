@@ -55,7 +55,25 @@ def stations():
     result = [station for station, in data]
     #return the JSON representaion of the list
     return jsonify(result)
-    
+ 
+
+@app.route("/api/v1.0/tobs")   
+def tobs():
+    #calculate the previous year date 
+    prev_year = dt.date(last_date) - dt.timedelta(days=365)
+    #query the most atctive station 
+    most_active_station = session.query(Measurement.station, \
+        func.count(Measurement.station)).group_by(Measurement.station).\
+        order_by(func.count(Measurement.station).desc()).first()[0] 
+    #query the dates and temperature observations of the most active#
+    #   station for the previous yer                                #
+    data = session.query(Measurement.date, Measurement.tobs).\
+        filter(Measurement.station == most_active_station).\
+        filter(Measurement.date >= prev_year).all()
+    #convert the query result to a list
+    result = [tobs for date, tobs in data]
+    #return the JSON representation of the list
+    return jsonify(result)
 
 if __name__=='__main__':
     app.run(debug=True, port=5003)
