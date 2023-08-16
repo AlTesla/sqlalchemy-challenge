@@ -1,4 +1,5 @@
 # Import the dependencies.
+import datetime as dt
 from flask import Flask, render_template, jsonify
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -59,8 +60,9 @@ def stations():
 
 @app.route("/api/v1.0/tobs")   
 def tobs():
+    last_date = dt.date(2017, 8, 23)
     #calculate the previous year date 
-    prev_year = dt.date(last_date) - dt.timedelta(days=365)
+    prev_year = last_date - dt.timedelta(days=365)
     #query the most atctive station 
     most_active_station = session.query(Measurement.station, \
         func.count(Measurement.station)).group_by(Measurement.station).\
