@@ -1,5 +1,5 @@
 # Import the dependencies.
-from flask import Flask
+from flask import Flask, render_template
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -27,14 +27,7 @@ app = Flask(__name__)
 @app.route('/')
 def welcome():
     """List all avilable api routes"""
-    return (
-        f"Available Routes:<br>"
-        f"/api/v1.0/precipitation"
-        f"/api/v1.0/stations"
-        f"/api/v1.0/tobs"
-        f"/api/v1.0/<start>"
-        f"/api/v1.0/<end>"
-    )
+    return render_template('routes.html')
 
 
 
@@ -42,4 +35,4 @@ def welcome():
 # Flask Routes
 #################################################
 if __name__=='__main__':
-    app.run()
+    app.run(debug=True, port=5003)
