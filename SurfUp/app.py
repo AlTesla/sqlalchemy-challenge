@@ -19,10 +19,16 @@ Station = Base.classes.station
 
 # Create our session (link) from Python to the DB
 session = Session(engine)
+
 #################################################
 # Flask Setup
 #################################################
 app = Flask(__name__)
+
+
+#################################################
+# Flask Routes
+#################################################
 
 @app.route('/')
 def welcome():
@@ -39,9 +45,17 @@ def precipitation():
     result = {date: prcp for date, prcp in data}
     #return the Json representation of the dictionary
     return jsonify(result)
+
+
+@app.route("/api/v1.0/stations")
+def stations():
+    #query the station column from the dataset
+    data = session.query(Station.station).all()
+    #convert the query result to a list
+    result = [station for station, in data]
+    #return the JSON representaion of the list
+    return jsonify(result)
     
-#################################################
-# Flask Routes
-#################################################
+
 if __name__=='__main__':
     app.run(debug=True, port=5003)
