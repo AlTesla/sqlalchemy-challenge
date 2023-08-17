@@ -78,6 +78,36 @@ def tobs():
     # return the JSON representation of the list
     return jsonify(result)
 
+
+@app.route("/api/v1.0/<start>")
+def start(start):
+    # convert the start parameter to a date object
+    start_date = dt.datetime.strptime(start, "%Y-%m-%d").date()
+    # query the database for the temperature statistics
+    data = session.query(func.min(Measurement.tobs),\
+        func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
+        filter(Measurement.date >= start_date).all()
+    # convert the query to a dictionary
+    result = {"TMIN": data[0][0], "TAVG": data[0][1], "TMAX": data[0][2]}
+    # return the JSON representation of the dictionary
+    return jsonify(result)
+
+
+@app.route("/api/v1.0/<start>/<end>")
+def start_end(start, end):
+    # convert the start and end parameters to date objects
+    start_date = dt.datetime.strptime(start, "%Y-%m-%d").date()
+    end_date = dt.datetime.strptime(end, "%Y-%m-%d").date()
+    # query the database fot the temperatures statistics
+    data = session.query(func.min(Measurement.tobs), \
+        func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
+        filter(Measurement.date >= start_date).\
+        filter(Measurement.date <= end_date).all()
+    # convert the query result to a dictionary
+    result = {"TMIN": data[0][0], "TAVG": data[0][1], "TMAX": data[0][2]}
+    # return the JSON representation of the dictionary
+    return jsonify(result)
+    
 if __name__=='__main__':
     app.run(debug=True, port=5003)
     
