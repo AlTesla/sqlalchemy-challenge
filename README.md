@@ -1,5 +1,8 @@
 # sqlalchemy-challenge
-this repository contains the SQLalchemy challenge assignment for Data Analytics Bootcamp 
+this repository contains the SQLalchemy challenge assignment for Data Analytics Bootcamp.
+
+
+
 ## Table of contents 
 * sqlalchemy-challenge
     * SurfUp
@@ -13,6 +16,10 @@ this repository contains the SQLalchemy challenge assignment for Data Analytics 
         * climate_EDA.ipnb
     README.md
 ## instalation instructions 
-This scripts need to be runned in anaconda python kernel with the right setup of `SQLalchemy` and `Flask` 
+This scripts need to be runned in anaconda python kernel with the right setup of `SQLalchemy` and `Flask`. You need to to ensure that you are setted anaconda as a runnig kernel for python in your visual studio or coding enviaroment. 
 ## Usage
+The app.py script needs `render_template` function from `flask` library to run the `routes.html` this script is need because it contains the first page for the api. 
 ## Credits
+This scripts was originally created by [Alvaro Corona](https://github.com/AlTesla)
+
+[flask: Stackoverflow](https://stackoverflow.com/questions/40895329/running-python-script-using-html-in-flask) 
