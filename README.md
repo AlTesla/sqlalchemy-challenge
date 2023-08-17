@@ -1,6 +1,6 @@
 # sqlalchemy-challenge
 this repository contains the SQLalchemy challenge assignment for Data Analytics Bootcamp.
-
+Into it you can find `climate_EDA.ipynb` this script is an exploratory data analysis for `hawaii.sqlite` data base and `app.py` this script is for the api running in the port `5003` 
 
 
 ## Table of contents 
